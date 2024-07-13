@@ -80,6 +80,7 @@
         }
         .concerts td {
             color: rgba(255, 255, 255, 1);
+            text-align: left; /* Left align the table cells */
         }
         .concerts tr:hover td {
             color: rgba(255, 255, 255, 0.5); /* Darker color on row hover */
@@ -210,9 +211,15 @@
                 </tr>
                 <tr>
                     <td>JULY 30</td>
-                    <td>PARIS, FRANCE</td>
-                    <td>PARC DES PRINCES</td>
-                    <td><button class="set-button" onclick="setCountdown('July 30, 2024 18:00:00', 'PARIS, FRANCE')">SET</button></td>
+                    <td>VIENNA, AUSTRIA</td>
+                    <td>ERNS-HAPPEL STADION</td>
+                    <td><button class="set-button" onclick="setCountdown('July 30, 2024 18:00:00', 'VIENNA, AUSTRIA')">SET</button></td>
+                </tr>
+                <tr>
+                    <td>AUGUST 1</td>
+                    <td>BERLIN, GERMANY</td>
+                    <td>OLYMPIASTADION</td>
+                    <td><button class="set-button" onclick="setCountdown('August 1, 2024 18:00:00', 'BERLIN, GERMANY')">SET</button></td>
                 </tr>
                 <tr>
                     <td>AUGUST 2</td>
@@ -263,6 +270,12 @@
             countdown.addEventListener('animationend', () => {
                 countdown.style.animation = '';
             });
+
+            // Reset other countdowns to 0
+            const countdowns = document.querySelectorAll('.set-button');
+            countdowns.forEach(button => {
+                button.disabled = false;
+            });
         }
 
         function updateCountdown() {
@@ -308,14 +321,14 @@
         tableRows.forEach(row => {
             row.addEventListener('mouseover', () => {
                 const button = row.querySelector('.set-button');
-                if (button) {
+                if (button && !button.disabled) {
                     button.style.color = 'rgba(255, 255, 255, 0.7)';
                 }
             });
 
             row.addEventListener('mouseleave', () => {
                 const button = row.querySelector('.set-button');
-                if (button) {
+                if (button && !button.disabled) {
                     button.style.color = 'white';
                 }
             });
