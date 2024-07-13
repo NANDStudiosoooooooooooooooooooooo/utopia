@@ -18,7 +18,6 @@
             background: black;
             color: white;
             text-align: center;
-            perspective: 1000px;
             overflow: hidden; /* Prevent page content from scrolling */
         }
         .countdown-container {
@@ -30,8 +29,7 @@
             background-color: black;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
-            transition: top 0.3s ease-in-out; /* Smooth transition for top position */
+            transition: top 0.3s ease-in-out, box-shadow 0.1s ease-in-out; /* Smooth transition for top position and box-shadow */
         }
         .countdown {
             font-size: 2em;
@@ -39,9 +37,8 @@
             flex-direction: row;
             justify-content: space-around;
             width: 100%;
-            transition: transform 0.1s;
+            transition: transform 0.1s, box-shadow 0.1s ease-in-out;
             margin-bottom: 20px;
-            animation: fadeIn 1s ease-in-out; /* Fade in animation */
         }
         .countdown div {
             margin: 10px;
@@ -49,7 +46,6 @@
         .concerts {
             width: 80%;
             margin-top: 20px;
-            animation: fadeIn 1s ease-in-out;
         }
         @keyframes fadeIn {
             from { opacity: 0; }
@@ -125,6 +121,9 @@
             }
             .concerts {
                 width: 100%;
+            }
+            .countdown-container {
+                width: 90%;
             }
         }
     </style>
@@ -203,121 +202,110 @@
                 <td><button class="set-button" onclick="setCountdown('July 30, 2024 18:00:00', 'PARIS, FRANCE')">SET</button></td>
             </tr>
             <tr>
-                <td>AUGUST 2</td>
-                <td>LISBON, PORTUGAL</td>
-                <td>MEO ARENA</td>
-                <td><button class="set-button" onclick="setCountdown('August 2, 2024 18:00:00', 'LISBON, PORTUGAL')">SET</button></td>
-            </tr>
-            <tr>
-                <td>AUGUST 3</td>
-                <td>LISBON, PORTUGAL</td>
-                <td>MEO ARENA</td>
-                <td><button class="set-button" onclick="setCountdown('August 3, 2024 18:00:00', 'LISBON, PORTUGAL')">SET</button></td>
-            </tr>
-            <tr>
-                <td>AUGUST 4</td>
-                <td>LISBON, PORTUGAL</td>
-                <td>MEO ARENA</td>
-                <td><button class="set-button" onclick="setCountdown('August 4, 2024 18:00:00', 'LISBON, PORTUGAL')">SET</button></td>
-            </tr>
-            <tr>
-                <td>SEPTEMBER 13</td>
-                <td>RIO DE JANEIRO, BRAZIL</td>
-                <td>ROCK IN RIO</td>
-                <td><button class="set-button" onclick="setCountdown('September 13, 2024 18:00:00', 'RIO DE JANEIRO, BRAZIL')">SET</button></td>
-            </tr>
-        </table>
-    </div>
-
-    <footer>
-        <p>MADE WITH <span class="heart">❤</span> BY <a href="https://nand-studios.com" target="_blank">NAND-STUDIOS.COM</a></p>
-    </footer>
-    
-    <script>
-        let targetDate = new Date("July 20, 2024 18:00:00").getTime();
-        let originalTop = '50%';
-    
-        function setCountdown(date, location) {
-            targetDate = new Date(date).getTime();
-            document.getElementById('selectedCity').textContent = location.toUpperCase();
-            
-            // Scroll countdown to top only when scrolling down
-            const countdownContainer = document.getElementById('countdownContainer');
-            if (window.scrollY > 0) {
-                countdownContainer.style.top = '10px';
+                <td>AUGUST 2</td
+                    <td>LISBON, PORTUGAL</td>
+                    <td>MEO ARENA</td>
+                    <td><button class="set-button" onclick="setCountdown('August 2, 2024 18:00:00', 'LISBON, PORTUGAL')">SET</button></td>
+                </tr>
+                <tr>
+                    <td>AUGUST 3</td>
+                    <td>LISBON, PORTUGAL</td>
+                    <td>MEO ARENA</td>
+                    <td><button class="set-button" onclick="setCountdown('August 3, 2024 18:00:00', 'LISBON, PORTUGAL')">SET</button></td>
+                </tr>
+                <tr>
+                    <td>AUGUST 4</td>
+                    <td>LISBON, PORTUGAL</td>
+                    <td>MEO ARENA</td>
+                    <td><button class="set-button" onclick="setCountdown('August 4, 2024 18:00:00', 'LISBON, PORTUGAL')">SET</button></td>
+                </tr>
+                <tr>
+                    <td>SEPTEMBER 13</td>
+                    <td>RIO DE JANEIRO, BRAZIL</td>
+                    <td>ROCK IN RIO</td>
+                    <td><button class="set-button" onclick="setCountdown('September 13, 2024 18:00:00', 'RIO DE JANEIRO, BRAZIL')">SET</button></td>
+                </tr>
+            </table>
+        </div>
+        
+        <footer>
+            <p>MADE WITH <span class="heart">❤</span> BY <a href="https://nand-studios.com" target="_blank">NAND-STUDIOS.COM</a></p>
+        </footer>
+        
+        <script>
+            let targetDate = new Date("July 20, 2024 18:00:00").getTime();
+            let originalTop = '50%';
+        
+            function setCountdown(date, location) {
+                targetDate = new Date(date).getTime();
+                document.getElementById('selectedCity').textContent = location.toUpperCase();
+        
+                // Reset countdown to original top position on button click
+                document.getElementById('countdownContainer').style.top = originalTop;
+        
+                // Fade-in animation for the countdown text
+                document.getElementById('countdown').style.animation = 'fadeIn 1s ease-in-out';
             }
-        }
-    
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const distance = targetDate - now;
-    
-            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-    
-            document.getElementById("days").innerHTML = days + " Days";
-            document.getElementById("hours").innerHTML = hours + " Hours";
-            document.getElementById("minutes").innerHTML = minutes + " Minutes";
-            document.getElementById("seconds").innerHTML = seconds + " Seconds";
-    
-            if (distance < 0) {
-                clearInterval(countdownInterval);
-                document.getElementById("days").innerHTML = "0 Days";
-                document.getElementById("hours").innerHTML = "0 Hours";
-                document.getElementById("minutes").innerHTML = "0 Minutes";
-                document.getElementById("seconds").innerHTML = "0 Seconds";
+        
+            function updateCountdown() {
+                const now = new Date().getTime();
+                const distance = targetDate - now;
+        
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        
+                document.getElementById("days").innerHTML = days + " Days";
+                document.getElementById("hours").innerHTML = hours + " Hours";
+                document.getElementById("minutes").innerHTML = minutes + " Minutes";
+                document.getElementById("seconds").innerHTML = seconds + " Seconds";
+        
+                if (distance < 0) {
+                    clearInterval(countdownInterval);
+                    document.getElementById("days").innerHTML = "0 Days";
+                    document.getElementById("hours").innerHTML = "0 Hours";
+                    document.getElementById("minutes").innerHTML = "0 Minutes";
+                    document.getElementById("seconds").innerHTML = "0 Seconds";
+                }
             }
-        }
-    
-        const countdownInterval = setInterval(updateCountdown, 1000);
-        updateCountdown();
-    
-        document.addEventListener('scroll', () => {
-            const countdownContainer = document.getElementById('countdownContainer');
-            if (window.scrollY === 0) {
-                countdownContainer.style.top = originalTop;
-            } else {
-                countdownContainer.style.top = '10px';
-            }
-        });
-    
-        // Adjust button text color on row hover
-        const tableRows = document.querySelectorAll('.concerts table tr');
-        tableRows.forEach(row => {
-            row.addEventListener('mouseover', () => {
-                const button = row.querySelector('.set-button');
-                if (button) {
-                    button.style.color = 'rgba(255, 255, 255, 0.7)';
+        
+            const countdownInterval = setInterval(updateCountdown, 1000);
+            updateCountdown();
+        
+            document.addEventListener('scroll', () => {
+                const countdownContainer = document.getElementById('countdownContainer');
+                if (window.scrollY === 0) {
+                    countdownContainer.style.top = originalTop;
+                } else {
+                    countdownContainer.style.top = '10px';
                 }
             });
-    
-            row.addEventListener('mouseleave', () => {
-                const button = row.querySelector('.set-button');
-                if (button) {
-                    button.style.color = 'white';
-                }
+        
+            // Adjust button text color on row hover
+            const tableRows = document.querySelectorAll('.concerts table tr');
+            tableRows.forEach(row => {
+                row.addEventListener('mouseover', () => {
+                    const button = row.querySelector('.set-button');
+                    if (button) {
+                        button.style.color = 'rgba(255, 255, 255, 0.7)';
+                    }
+                });
+        
+                row.addEventListener('mouseleave', () => {
+                    const button = row.querySelector('.set-button');
+                    if (button) {
+                        button.style.color = 'white';
+                    }
+                });
             });
-        });
-    
-        // Scroll countdown to top when scrolling down and return to center on button click or scroll to top
-        document.addEventListener('scroll', () => {
-            const countdownContainer = document.getElementById('countdownContainer');
-            const concertsSection = document.querySelector('.concerts');
-            const concertsSectionPosition = concertsSection.getBoundingClientRect().top;
-    
-            if (concertsSectionPosition < window.innerHeight && window.scrollY > 0) {
-                countdownContainer.style.top = '10px';
-            } else if (window.scrollY === 0) {
-                countdownContainer.style.top = originalTop;
-            }
-        });
-    
-        document.querySelector('.set-button').addEventListener('click', () => {
-            const countdownContainer = document.getElementById('countdownContainer');
-            countdownContainer.style.top = originalTop;
-        });
-    </script>
-</body>
-</html>
+        
+            // Mouse move event to create glow effect
+            document.addEventListener('mousemove', (e) => {
+                const countdownContainer = document.getElementById('countdownContainer');
+                const rect = countdownContainer.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                countdownContainer.style.boxShadow = `${x}px ${y}px 20px rgba(255, 255, 255, 0.5)`;
+            });
+        </script>
