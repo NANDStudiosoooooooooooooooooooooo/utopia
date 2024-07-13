@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Countdown</title>
+    <title>Travis Scott Konzert Countdown</title>
     <style>
         body {
             font-family: 'Arial', sans-serif;
@@ -13,17 +13,20 @@
             flex-direction: column;
             height: 100vh;
             margin: 0;
-            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            background: linear-gradient(135deg, #ff5f6d, #ffc371);
             color: white;
             text-align: center;
         }
         .countdown {
             font-size: 3em;
-            background: rgba(0, 0, 0, 0.5);
+            background: rgba(0, 0, 0, 0.7);
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
             animation: fadeIn 2s ease-in-out;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         .countdown div {
             margin: 10px 0;
@@ -36,6 +39,19 @@
         @keyframes slideIn {
             from { transform: translateY(-30px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
+        }
+        .countdown-seconds {
+            display: flex;
+            align-items: baseline;
+        }
+        .seconds {
+            font-size: 0.6em;
+            margin-left: 5px;
+            animation: pulse 1s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
         }
         footer {
             position: absolute;
@@ -66,6 +82,10 @@
         <div id="days">0 Tage</div>
         <div id="hours">0 Stunden</div>
         <div id="minutes">0 Minuten</div>
+        <div class="countdown-seconds">
+            <div id="seconds">0</div>
+            <div class="seconds">Sekunden</div>
+        </div>
     </div>
 
     <footer>
@@ -81,16 +101,19 @@
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
             document.getElementById("days").innerHTML = days + " Tage";
             document.getElementById("hours").innerHTML = hours + " Stunden";
             document.getElementById("minutes").innerHTML = minutes + " Minuten";
+            document.getElementById("seconds").innerHTML = seconds;
 
             if (distance < 0) {
                 clearInterval(countdownInterval);
                 document.getElementById("days").innerHTML = "0 Tage";
                 document.getElementById("hours").innerHTML = "0 Stunden";
                 document.getElementById("minutes").innerHTML = "0 Minuten";
+                document.getElementById("seconds").innerHTML = "0";
             }
         }
 
