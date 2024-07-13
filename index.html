@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="de">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Travis Scott Konzert Countdown</title>
+    <title>Travis Scott Concert Countdown</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
         
@@ -18,6 +18,7 @@
             background: black;
             color: white;
             text-align: center;
+            perspective: 1000px;
         }
         .countdown {
             font-size: 3em;
@@ -25,24 +26,15 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
-            animation: fadeIn 2s ease-in-out;
             display: flex;
             flex-direction: row;
             justify-content: space-around;
             width: 80%;
-            transition: transform 0.5s, box-shadow 0.5s;
-        }
-        .countdown:hover {
-            transform: scale(1.05) rotate(2deg);
-            box-shadow: 0 0 30px rgba(255, 0, 0, 0.8);
+            transition: transform 0.1s;
         }
         .countdown div {
             margin: 10px;
             animation: slideIn 1s ease-in-out;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
         }
         @keyframes slideIn {
             from { transform: translateY(-30px); opacity: 0; }
@@ -78,14 +70,20 @@
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.2); }
         }
+        @media (max-width: 600px) {
+            .countdown {
+                flex-direction: column;
+                width: 100%;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="countdown">
-        <div id="days">0 Tage</div>
-        <div id="hours">0 Stunden</div>
-        <div id="minutes">0 Minuten</div>
-        <div id="seconds" class="seconds">0 Sekunden</div>
+    <div class="countdown" id="countdown">
+        <div id="days">0 Days</div>
+        <div id="hours">0 Hours</div>
+        <div id="minutes">0 Minutes</div>
+        <div id="seconds" class="seconds">0 Seconds</div>
     </div>
 
     <footer>
@@ -103,22 +101,29 @@
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            document.getElementById("days").innerHTML = days + " Tage";
-            document.getElementById("hours").innerHTML = hours + " Stunden";
-            document.getElementById("minutes").innerHTML = minutes + " Minuten";
-            document.getElementById("seconds").innerHTML = seconds + " Sekunden";
+            document.getElementById("days").innerHTML = days + " Days";
+            document.getElementById("hours").innerHTML = hours + " Hours";
+            document.getElementById("minutes").innerHTML = minutes + " Minutes";
+            document.getElementById("seconds").innerHTML = seconds + " Seconds";
 
             if (distance < 0) {
                 clearInterval(countdownInterval);
-                document.getElementById("days").innerHTML = "0 Tage";
-                document.getElementById("hours").innerHTML = "0 Stunden";
-                document.getElementById("minutes").innerHTML = "0 Minuten";
-                document.getElementById("seconds").innerHTML = "0 Sekunden";
+                document.getElementById("days").innerHTML = "0 Days";
+                document.getElementById("hours").innerHTML = "0 Hours";
+                document.getElementById("minutes").innerHTML = "0 Minutes";
+                document.getElementById("seconds").innerHTML = "0 Seconds";
             }
         }
 
         const countdownInterval = setInterval(updateCountdown, 1000);
         updateCountdown();
+
+        document.addEventListener('mousemove', (e) => {
+            const countdown = document.getElementById('countdown');
+            const x = (window.innerWidth / 2 - e.pageX) / 50;
+            const y = (window.innerHeight / 2 - e.pageY) / 50;
+            countdown.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
+        });
     </script>
 </body>
 </html>
