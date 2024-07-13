@@ -27,11 +27,17 @@
             box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
             animation: fadeIn 2s ease-in-out;
             display: flex;
-            flex-direction: column;
-            align-items: center;
+            flex-direction: row;
+            justify-content: space-around;
+            width: 80%;
+            transition: transform 0.5s, box-shadow 0.5s;
+        }
+        .countdown:hover {
+            transform: scale(1.05) rotate(2deg);
+            box-shadow: 0 0 30px rgba(255, 0, 0, 0.8);
         }
         .countdown div {
-            margin: 10px 0;
+            margin: 10px;
             animation: slideIn 1s ease-in-out;
         }
         @keyframes fadeIn {
@@ -42,13 +48,7 @@
             from { transform: translateY(-30px); opacity: 0; }
             to { transform: translateY(0); opacity: 1; }
         }
-        .countdown-seconds {
-            display: flex;
-            align-items: baseline;
-        }
         .seconds {
-            font-size: 0.6em;
-            margin-left: 5px;
             animation: pulse 1s infinite;
         }
         @keyframes pulse {
@@ -85,10 +85,7 @@
         <div id="days">0 Tage</div>
         <div id="hours">0 Stunden</div>
         <div id="minutes">0 Minuten</div>
-        <div class="countdown-seconds">
-            <div id="seconds">0</div>
-            <div class="seconds">Sekunden</div>
-        </div>
+        <div id="seconds" class="seconds">0 Sekunden</div>
     </div>
 
     <footer>
@@ -109,14 +106,14 @@
             document.getElementById("days").innerHTML = days + " Tage";
             document.getElementById("hours").innerHTML = hours + " Stunden";
             document.getElementById("minutes").innerHTML = minutes + " Minuten";
-            document.getElementById("seconds").innerHTML = seconds;
+            document.getElementById("seconds").innerHTML = seconds + " Sekunden";
 
             if (distance < 0) {
                 clearInterval(countdownInterval);
                 document.getElementById("days").innerHTML = "0 Tage";
                 document.getElementById("hours").innerHTML = "0 Stunden";
                 document.getElementById("minutes").innerHTML = "0 Minuten";
-                document.getElementById("seconds").innerHTML = "0";
+                document.getElementById("seconds").innerHTML = "0 Sekunden";
             }
         }
 
