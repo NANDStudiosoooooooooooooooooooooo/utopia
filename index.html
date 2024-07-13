@@ -30,6 +30,7 @@
             padding: 20px;
             border-radius: 10px;
             transition: top 0.3s ease-in-out, box-shadow 0.1s ease-in-out; /* Smooth transition for top position and box-shadow */
+            box-shadow: 0 0 50px rgba(255, 255, 255, 0.1); /* Initial light glow */
         }
         .countdown {
             font-size: 2em;
@@ -202,11 +203,17 @@
                 <td><button class="set-button" onclick="setCountdown('July 30, 2024 18:00:00', 'PARIS, FRANCE')">SET</button></td>
             </tr>
             <tr>
-                <td>AUGUST 2</td
+                <td>AUGUST 1</td>
+                <td>LISBON, PORTUGAL</td>
+                <td>MEO ARENA</td>
+                <td><button class="set-button" onclick="setCountdown('August 1, 2024 18:00:00', 'LISBON, PORTUGAL')">SET</button></td>
+            </tr>
+            <tr>
+                <td>AUGUST 2</td>
                 <td>LISBON, PORTUGAL</td>
                 <td>MEO ARENA</td>
                 <td><button class="set-button" onclick="setCountdown('August 2, 2024 18:00:00', 'LISBON, PORTUGAL')">SET</button></td>
-                </tr>
+            </tr>
             <tr>
                 <td>AUGUST 3</td>
                 <td>LISBON, PORTUGAL</td>
@@ -227,85 +234,91 @@
             </tr>
         </table>
     </div>
-        
-        <footer>
-            <p>MADE WITH <span class="heart">❤</span> BY <a href="https://nand-studios.com" target="_blank">NAND-STUDIOS.COM</a></p>
-        </footer>
-        
-        <script>
-            let targetDate = new Date("July 20, 2024 18:00:00").getTime();
-            let originalTop = '50%';
-        
-            function setCountdown(date, location) {
-                targetDate = new Date(date).getTime();
-                document.getElementById('selectedCity').textContent = location.toUpperCase();
-        
-                // Reset countdown to original top position on button click
-                document.getElementById('countdownContainer').style.top = originalTop;
-        
-                // Fade-in animation for the countdown text
-                document.getElementById('countdown').style.animation = 'fadeIn 1s ease-in-out';
+
+    <footer>
+        <p>MADE WITH <span class="heart">❤</span> BY <a href="https://nand-studios.com" target="_blank">NAND-STUDIOS.COM</a></p>
+    </footer>
+
+    <script>
+        let targetDate = new Date("July 20, 2024 18:00:00").getTime();
+        let originalTop = '50%';
+
+        function setCountdown(date, location) {
+            targetDate = new Date(date).getTime();
+            document.getElementById('selectedCity').textContent = location.toUpperCase();
+
+            // Reset countdown to original top position on button click
+            document.getElementById('countdownContainer').style.top = originalTop;
+
+            // Fade-in animation for the countdown text
+            document.getElementById('countdown').style.animation = 'fadeIn 1s ease-in-out';
+        }
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById("days").innerHTML = days + " Days";
+            document.getElementById("hours").innerHTML = hours + " Hours";
+            document.getElementById("minutes").innerHTML = minutes + " Minutes";
+            document.getElementById("seconds").innerHTML = seconds + " Seconds";
+
+            if (distance < 0) {
+                clearInterval(countdownInterval);
+                document.getElementById("days").innerHTML = "0 Days";
+                document.getElementById("hours").innerHTML = "0 Hours";
+                document.getElementById("minutes").innerHTML = "0 Minutes";
+                document.getElementById("seconds").innerHTML = "0 Seconds";
             }
-        
-            function updateCountdown() {
-                const now = new Date().getTime();
-                const distance = targetDate - now;
-        
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-        
-                document.getElementById("days").innerHTML = days + " Days";
-                document.getElementById("hours").innerHTML = hours + " Hours";
-                document.getElementById("minutes").innerHTML = minutes + " Minutes";
-                document.getElementById("seconds").innerHTML = seconds + " Seconds";
-        
-                if (distance < 0) {
-                    clearInterval(countdownInterval);
-                    document.getElementById("days").innerHTML = "0 Days";
-                    document.getElementById("hours").innerHTML = "0 Hours";
-                    document.getElementById("minutes").innerHTML = "0 Minutes";
-                    document.getElementById("seconds").innerHTML = "0 Seconds";
-                }
+        }
+
+        const countdownInterval = setInterval(updateCountdown, 1000);
+        updateCountdown();
+
+        document.addEventListener('scroll', () => {
+            const countdownContainer = document.getElementById('countdownContainer');
+            if (window.scrollY === 0) {
+                countdownContainer.style.top = originalTop;
+            } else {
+                countdownContainer.style.top = '10px';
             }
-        
-            const countdownInterval = setInterval(updateCountdown, 1000);
-            updateCountdown();
-        
-            document.addEventListener('scroll', () => {
-                const countdownContainer = document.getElementById('countdownContainer');
-                if (window.scrollY === 0) {
-                    countdownContainer.style.top = originalTop;
-                } else {
-                    countdownContainer.style.top = '10px';
+        });
+
+        // Adjust button text color on row hover
+        const tableRows = document.querySelectorAll('.concerts table tr');
+        tableRows.forEach(row => {
+            row.addEventListener('mouseover', () => {
+                const button = row.querySelector('.set-button');
+                if (button) {
+                    button.style.color = 'rgba(255, 255, 255, 0.7)';
                 }
             });
-        
-            // Adjust button text color on row hover
-            const tableRows = document.querySelectorAll('.concerts table tr');
-            tableRows.forEach(row => {
-                row.addEventListener('mouseover', () => {
-                    const button = row.querySelector('.set-button');
-                    if (button) {
-                        button.style.color = 'rgba(255, 255, 255, 0.7)';
-                    }
-                });
-        
-                row.addEventListener('mouseleave', () => {
-                    const button = row.querySelector('.set-button');
-                    if (button) {
-                        button.style.color = 'white';
-                    }
-                });
+
+            row.addEventListener('mouseleave', () => {
+                const button = row.querySelector('.set-button');
+                if (button) {
+                    button.style.color = 'white';
+                }
             });
-        
-            // Mouse move event to create glow effect
-            document.addEventListener('mousemove', (e) => {
-                const countdownContainer = document.getElementById('countdownContainer');
-                const rect = countdownContainer.getBoundingClientRect();
-                const x = e.clientX - rect.left;
-                const y = e.clientY - rect.top;
-                countdownContainer.style.boxShadow = `${x}px ${y}px 20px rgba(255, 255, 255, 0.5)`;
-            });
-        </script>
+        });
+
+        // Mouse move event to create glow effect based on proximity to the countdown
+        document.addEventListener('mousemove', (e) => {
+            const countdownContainer = document.getElementById('countdownContainer');
+            const rect = countdownContainer.getBoundingClientRect();
+            const x = e.clientX - rect.left - rect.width / 2;
+            const y = e.clientY - rect.top - rect.height / 2;
+            const maxDistance = Math.max(rect.width, rect.height) / 2;
+            const distance = Math.sqrt(x * x + y * y);
+            const intensity = 1 - Math.min(distance / maxDistance, 1);
+
+            countdownContainer.style.boxShadow = `0 0 20px rgba(255, 255, 255, ${0.1 + 0.4 * intensity})`;
+        });
+    </script>
+</body>
+</html>
