@@ -204,16 +204,22 @@
                     <td><button class="set-button" onclick="setCountdown('July 26, 2024 18:00:00', 'FRANKFURT, GERMANY')">SET</button></td>
                 </tr>
                 <tr>
-                    <td>JULY 28</td>
-                    <td>LONDON, UK</td>
-                    <td>STADIUM</td>
-                    <td><button class="set-button" onclick="setCountdown('July 28, 2024 18:00:00', 'LONDON, UK')">SET</button></td>
+                    <td>JULY 27</td>
+                    <td>FRANKFURT, GERMANY</td>
+                    <td>DEUTSCHE BANK PARK</td>
+                    <td><button class="set-button" onclick="setCountdown('July 27, 2024 18:00:00', 'FRANKFURT, GERMANY')">SET</button></td>
                 </tr>
                 <tr>
                     <td>JULY 30</td>
-                    <td>VIENNA, AUSTRIA</td>
-                    <td>ERNS-HAPPEL STADION</td>
-                    <td><button class="set-button" onclick="setCountdown('July 30, 2024 18:00:00', 'VIENNA, AUSTRIA')">SET</button></td>
+                    <td>MADRID, SPAIN</td>
+                    <td>WIZNK CENTER</td>
+                    <td><button class="set-button" onclick="setCountdown('July 30, 2024 18:00:00', 'MADRID, SPAIN')">SET</button></td>
+                </tr>
+                <tr>
+                    <td>JULY 31</td>
+                    <td>MADRID, SPAIN</td>
+                    <td>WIZNK CENTER</td>
+                    <td><button class="set-button" onclick="setCountdown('July 31, 2024 18:00:00', 'MADRID, SPAIN')">SET</button></td>
                 </tr>
                 <tr>
                     <td>AUGUST 2</td>
@@ -241,6 +247,7 @@
                 </tr>
             </table>
         </div>
+    </div>
 
         <footer>
             <p>MADE WITH <span class="heart">❤</span> BY <a href="https://nand-studios.com" target="_blank">NAND-STUDIOS.COM</a></p>
@@ -251,27 +258,53 @@
         let targetDate = new Date("July 20, 2024 18:00:00").getTime();
         let originalTop = '50%';
 
-        function setCountdown(date, location) {
-            targetDate = new Date(date).getTime();
-            document.getElementById('selectedCity').textContent = location.toUpperCase();
+        function setCountdown(dateString, city) {
+            const countdownDate = new Date(dateString).getTime();
+            const countdownContainer = document.getElementById('countdownContainer');
+            countdownContainer.style.top = '45%';
+            setTimeout(() => countdownContainer.style.top = '50%', 300);
+            
+            document.getElementById('selectedCity').innerText = city.toUpperCase();
+            
+            const interval = setInterval(function () {
+                const now = new Date().getTime();
+                const distance = countdownDate - now;
 
-            // Reset countdown to original top position on button click
-            document.getElementById('countdownContainer').style.top = originalTop;
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
 
-            // Fade-in animation for the countdown text
-            const countdown = document.getElementById('countdown');
-            countdown.style.animation = 'fadeIn 1s ease-in-out';
-            countdown.addEventListener('animationend', () => {
-                countdown.style.animation = '';
-            });
+                document.getElementById('days').innerText = days;
+                document.getElementById('hours').innerText = hours;
+                document.getElementById('minutes').innerText = minutes;
+                document.getElementById('seconds').innerText = seconds;
 
-            // Reset other countdowns to 0
-            const countdowns = document.querySelectorAll('.set-button');
-            countdowns.forEach(button => {
-                button.disabled = false;
-            });
+                if (distance < 0) {
+                    clearInterval(interval);
+                    document.getElementById('countdown').innerHTML = "EXPIRED";
+                }
+            }, 1000);
+        }
 
-            updateCountdown();
+        document.addEventListener("DOMContentLoaded", function () {
+            setCountdown('July 20, 2024 18:00:00', 'COLOGNE, GERMANY');
+            setInterval(generateRandomSymbols, 5000); // generate random symbols every 5 seconds
+        });
+
+        function generateRandomSymbols() {
+            const symbols = "!@#$%^&*()_+{}|:<>?`~";
+            const randomIndex = Math.floor(Math.random() * symbols.length);
+            const randomSymbol = symbols[randomIndex];
+            const symbolElement = document.createElement('div');
+            symbolElement.textContent = randomSymbol;
+            symbolElement.style.position = 'absolute';
+            symbolElement.style.left = Math.random() * 100 + 'vw';
+            symbolElement.style.top = Math.random() * 100 + 'vh';
+            symbolElement.style.fontSize = Math.random() * 2 + 1 + 'em';
+            symbolElement.style.animation = 'fadeIn 3s forwards, moveRandomly 3s forwards';
+            document.body.appendChild(symbolElement);
+            setTimeout(() => symbolElement.remove(), 3000); // remove after 3 seconds
         }
 
         function updateCountdown() {
