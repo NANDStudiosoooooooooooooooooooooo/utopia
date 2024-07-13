@@ -15,7 +15,7 @@
             flex-direction: column;
             height: 100vh;
             margin: 0;
-            background: black;
+            background: black; /* Hintergrund auf Schwarz setzen */
             color: white;
             text-align: center;
             perspective: 1000px;
@@ -29,10 +29,10 @@
         }
         .countdown {
             font-size: 2em;
-            background: #1c1c1c;
+            background: transparent; /* Hintergrund auf Transparent setzen */
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Glow-Effekt wie bei Buttons */
             display: flex;
             flex-direction: row;
             justify-content: space-around;
@@ -58,17 +58,23 @@
         .concerts {
             width: 80%;
             margin-bottom: 20px;
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
         .concerts table {
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
             border: 1px solid white; /* Weiße Umrandung hinzufügen */
+            background-color: transparent; /* Hintergrundfarbe transparent setzen */
+            color: white; /* Textfarbe weiß */
         }
         .concerts th, .concerts td {
             border: 1px solid white; /* Weiße Umrandung für Header und Zellen */
             padding: 10px;
-            color: white; /* Textfarbe weiß */
         }
         .concerts th {
             background-color: transparent; /* Hintergrundfarbe transparent setzen */
@@ -90,11 +96,11 @@
         .set-button:hover {
             background-color: white;
             color: black;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Glow-Effekt hinzufügen */
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Glow-Effekt wie bei Buttons */
         }
         footer {
-            position: absolute;
-            bottom: 20px;
+            position: relative;
+            margin-top: 20px; /* Abstand zum Inhalt hinzufügen */
             font-size: 1em;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -134,6 +140,7 @@
             <div id="minutes">0 Minutes</div>
             <div id="seconds" class="seconds">0 Seconds</div>
         </div>
+        <div id="selectedCity">COLOGNE, GERMANY</div> <!-- Aktuell ausgewählte Stadt unter dem Countdown -->
     </div>
 
     <div class="concerts">
@@ -240,6 +247,8 @@
 
         function setCountdown(date) {
             targetDate = new Date(date).getTime();
+            const selectedCity = date.split(',')[1].trim().toUpperCase(); // Extrahiere die ausgewählte Stadt
+            document.getElementById('selectedCity').textContent = selectedCity; // Aktualisiere die Anzeige der ausgewählten Stadt
         }
 
         function updateCountdown() {
