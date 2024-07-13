@@ -85,7 +85,7 @@
         .set-button {
             background-color: transparent;
             color: white;
-            border: 1px solid rgba(255, 255, 255, 0.7);
+            border: 1px solid rgba(255, 255, 255, 0.7); /* Darker border color */
             padding: 10px 20px;
             cursor: pointer;
             font-size: 1em;
@@ -256,7 +256,11 @@
             document.getElementById('countdownContainer').style.top = originalTop;
 
             // Fade-in animation for the countdown text
-            document.getElementById('countdown').style.animation = 'fadeIn 1s ease-in-out';
+            const countdown = document.getElementById('countdown');
+            countdown.style.animation = 'fadeIn 1s ease-in-out';
+            countdown.addEventListener('animationend', () => {
+                countdown.style.animation = '';
+            });
         }
 
         function updateCountdown() {
