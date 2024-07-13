@@ -20,6 +20,13 @@
             text-align: center;
             perspective: 1000px;
         }
+        .countdown-container {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 1000;
+        }
         .countdown {
             font-size: 2em;
             background: #1c1c1c;
@@ -56,16 +63,18 @@
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
+            border: 1px solid white; /* Weiße Umrandung hinzufügen */
         }
         .concerts th, .concerts td {
-            border: 1px solid #444;
+            border: 1px solid white; /* Weiße Umrandung für Header und Zellen */
             padding: 10px;
+            color: white; /* Textfarbe weiß */
         }
         .concerts th {
-            background-color: #444;
+            background-color: transparent; /* Hintergrundfarbe transparent setzen */
         }
         .concerts td {
-            background-color: #222;
+            background-color: transparent; /* Hintergrundfarbe transparent setzen */
         }
         .set-button {
             background-color: transparent;
@@ -74,11 +83,14 @@
             padding: 10px 20px;
             cursor: pointer;
             font-size: 1em;
-            transition: background-color 0.3s ease, color 0.3s ease;
+            transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+            border-radius: 20px; /* Abgerundete Ecken hinzufügen */
+            outline: none; /* Entfernen der Standardumrandung */
         }
         .set-button:hover {
             background-color: white;
             color: black;
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Glow-Effekt hinzufügen */
         }
         footer {
             position: absolute;
@@ -115,11 +127,13 @@
     </style>
 </head>
 <body>
-    <div class="countdown" id="countdown">
-        <div id="days">0 Days</div>
-        <div id="hours">0 Hours</div>
-        <div id="minutes">0 Minutes</div>
-        <div id="seconds" class="seconds">0 Seconds</div>
+    <div class="countdown-container" id="countdownContainer">
+        <div class="countdown" id="countdown">
+            <div id="days">0 Days</div>
+            <div id="hours">0 Hours</div>
+            <div id="minutes">0 Minutes</div>
+            <div id="seconds" class="seconds">0 Seconds</div>
+        </div>
     </div>
 
     <div class="concerts">
@@ -253,6 +267,15 @@
 
         const countdownInterval = setInterval(updateCountdown, 1000);
         updateCountdown();
+
+        document.addEventListener('scroll', () => {
+            const countdownContainer = document.getElementById('countdownContainer');
+            if (window.scrollY === 0) {
+                countdownContainer.style.top = '50%';
+            } else {
+                countdownContainer.style.top = '10px';
+            }
+        });
 
         document.addEventListener('mousemove', (e) => {
             const countdown = document.getElementById('countdown');
