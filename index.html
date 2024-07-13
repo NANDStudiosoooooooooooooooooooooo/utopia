@@ -26,17 +26,17 @@
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 1000;
-        }
-        .countdown {
-            font-size: 2em;
-            background: transparent; /* Hintergrund auf Transparent setzen */
+            background-color: black; /* Hintergrund des Countdowns auf Schwarz setzen */
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Glow-Effekt wie bei Buttons */
+        }
+        .countdown {
+            font-size: 2em;
             display: flex;
             flex-direction: row;
             justify-content: space-around;
-            width: 80%;
+            width: 100%;
             transition: transform 0.1s;
             margin-bottom: 20px;
         }
@@ -57,7 +57,7 @@
         }
         .concerts {
             width: 80%;
-            margin-bottom: 20px;
+            margin-top: 20px;
             animation: fadeIn 1s ease-in-out;
         }
         @keyframes fadeIn {
@@ -69,7 +69,7 @@
             border-collapse: collapse;
             margin-bottom: 20px;
             border: 1px solid white; /* Weiße Umrandung hinzufügen */
-            background-color: transparent; /* Hintergrundfarbe transparent setzen */
+            background-color: black; /* Hintergrundfarbe auf Schwarz setzen */
             color: white; /* Textfarbe weiß */
         }
         .concerts th, .concerts td {
@@ -135,6 +135,7 @@
 <body>
     <div class="countdown-container" id="countdownContainer">
         <div class="countdown" id="countdown">
+            <div id="timeLeft">Time Left:</div>
             <div id="days">0 Days</div>
             <div id="hours">0 Hours</div>
             <div id="minutes">0 Minutes</div>
