@@ -30,6 +30,7 @@
             padding: 20px;
             border-radius: 10px;
             box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            transition: top 0.3s ease-in-out; /* Smooth transition for top position */
         }
         .countdown {
             font-size: 2em;
@@ -39,14 +40,10 @@
             width: 100%;
             transition: transform 0.1s;
             margin-bottom: 20px;
+            animation: fadeIn 1s ease-in-out; /* Fade in animation */
         }
         .countdown div {
             margin: 10px;
-            animation: slideIn 1s ease-in-out;
-        }
-        @keyframes slideIn {
-            from { transform: translateY(-30px); opacity: 0; }
-            to { transform: translateY(0); opacity: 1; }
         }
         .seconds {
             animation: pulse 1s infinite;
@@ -68,24 +65,23 @@
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
-            color: white;
         }
         .concerts th, .concerts td {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Dünne Linien */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.7); /* Same color as darker text */
             padding: 10px;
-            text-align: left; /* Text linksbündig */
+            text-align: left;
             transition: color 0.3s ease-in-out; /* Smooth color transition */
         }
         .concerts th {
             background-color: transparent;
             font-weight: normal;
-            color: rgba(255, 255, 255, 0.7); /* Dunklerer Header-Text */
+            color: rgba(255, 255, 255, 0.7); /* Darker header text */
         }
         .concerts td {
-            color: rgba(255, 255, 255, 1); /* Weißer Text in den Zellen */
+            color: rgba(255, 255, 255, 1); /* White text in cells */
         }
         .concerts tr:hover td {
-            color: rgba(255, 255, 255, 0.7); /* Bei Hover: leicht gedämpfte Textfarbe */
+            color: rgba(255, 255, 255, 0.7); /* Slightly muted text color on hover */
         }
         .set-button {
             background-color: transparent;
@@ -94,17 +90,15 @@
             padding: 10px 20px;
             cursor: pointer;
             font-size: 1em;
-            transition: color 0.3s ease, box-shadow 0.3s ease; /* Nur Farbwechsel */
+            transition: box-shadow 0.3s ease; /* Only box-shadow transition */
             border-radius: 20px;
             outline: none;
         }
         .set-button:hover {
-            color: black; /* Schrift schwarz bei Hover */
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Weißer Schatten */
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* White shadow */
         }
         .set-button:active {
-            color: black; /* Schrift schwarz beim Drücken */
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Weißer Schatten */
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* White shadow on click */
         }
         footer {
             position: relative;
@@ -112,6 +106,7 @@
             font-size: 1em;
             text-transform: uppercase;
             letter-spacing: 2px;
+            color: white;
         }
         footer a {
             color: white;
@@ -246,10 +241,15 @@
 
     <script>
         let targetDate = new Date("July 20, 2024 18:00:00").getTime();
+        let originalTop = '50%';
 
         function setCountdown(date, location) {
             targetDate = new Date(date).getTime();
             document.getElementById('selectedCity').textContent = location.toUpperCase();
+            
+            // Scroll countdown to top position
+            const countdownContainer = document.getElementById('countdownContainer');
+            countdownContainer.style.top = '10px';
         }
 
         function updateCountdown() {
@@ -281,7 +281,7 @@
         document.addEventListener('scroll', () => {
             const countdownContainer = document.getElementById('countdownContainer');
             if (window.scrollY === 0) {
-                countdownContainer.style.top = '50%';
+                countdownContainer.style.top = originalTop;
             } else {
                 countdownContainer.style.top = '10px';
             }
