@@ -21,7 +21,7 @@
             perspective: 1000px;
         }
         .countdown {
-            font-size: 3em;
+            font-size: 2em;
             background: #1c1c1c;
             padding: 20px;
             border-radius: 10px;
@@ -31,6 +31,7 @@
             justify-content: space-around;
             width: 80%;
             transition: transform 0.1s;
+            margin-bottom: 20px;
         }
         .countdown div {
             margin: 10px;
@@ -46,6 +47,37 @@
         @keyframes pulse {
             0%, 100% { transform: scale(1); }
             50% { transform: scale(1.2); }
+        }
+        .concerts {
+            width: 80%;
+            margin-bottom: 20px;
+        }
+        .concerts table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        .concerts th, .concerts td {
+            border: 1px solid #ddd;
+            padding: 8px;
+        }
+        .concerts th {
+            background-color: #444;
+        }
+        .concerts td {
+            background-color: #222;
+        }
+        .set-button {
+            background-color: #ff0000;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+        }
+        .set-button:hover {
+            background-color: #cc0000;
         }
         footer {
             position: absolute;
@@ -75,6 +107,9 @@
                 flex-direction: column;
                 width: 100%;
             }
+            .concerts {
+                width: 100%;
+            }
         }
     </style>
 </head>
@@ -86,13 +121,43 @@
         <div id="seconds" class="seconds">0 Seconds</div>
     </div>
 
+    <div class="concerts">
+        <table>
+            <tr>
+                <th>City</th>
+                <th>Date</th>
+                <th>Set Countdown</th>
+            </tr>
+            <tr>
+                <td>Cologne</td>
+                <td>20 Jul 2024 18:00</td>
+                <td><button class="set-button" onclick="setCountdown('July 20, 2024 18:00:00')">SET</button></td>
+            </tr>
+            <tr>
+                <td>New York</td>
+                <td>25 Jul 2024 20:00</td>
+                <td><button class="set-button" onclick="setCountdown('July 25, 2024 20:00:00')">SET</button></td>
+            </tr>
+            <tr>
+                <td>Los Angeles</td>
+                <td>30 Jul 2024 21:00</td>
+                <td><button class="set-button" onclick="setCountdown('July 30, 2024 21:00:00')">SET</button></td>
+            </tr>
+        </table>
+    </div>
+
     <footer>
         <p>MADE WITH <span class="heart">❤</span> BY <a href="https://nand-studios.com" target="_blank">NAND-STUDIOS.COM</a></p>
     </footer>
 
     <script>
+        let targetDate = new Date("July 20, 2024 18:00:00").getTime();
+
+        function setCountdown(date) {
+            targetDate = new Date(date).getTime();
+        }
+
         function updateCountdown() {
-            const targetDate = new Date("July 20, 2024 18:00:00").getTime();
             const now = new Date().getTime();
             const distance = targetDate - now;
 
