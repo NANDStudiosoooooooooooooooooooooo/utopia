@@ -3,23 +3,61 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Utopia Countdown</title>
+    <title>Countdown</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
+            font-family: 'Arial', sans-serif;
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction: column;
             height: 100vh;
             margin: 0;
-            background-color: #f0f0f0;
-        }
-        .countdown {
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            color: white;
             text-align: center;
         }
+        .countdown {
+            font-size: 3em;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            animation: fadeIn 2s ease-in-out;
+        }
         .countdown div {
-            font-size: 2em;
-            margin: 10px;
+            margin: 10px 0;
+            animation: slideIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        @keyframes slideIn {
+            from { transform: translateY(-30px); opacity: 0; }
+            to { transform: translateY(0); opacity: 1; }
+        }
+        footer {
+            position: absolute;
+            bottom: 20px;
+            font-size: 1.2em;
+            text-transform: uppercase;
+        }
+        footer a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+        .heart {
+            color: red;
+            animation: beat 1s infinite;
+        }
+        @keyframes beat {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.2); }
         }
     </style>
 </head>
@@ -29,6 +67,10 @@
         <div id="hours">0 Stunden</div>
         <div id="minutes">0 Minuten</div>
     </div>
+
+    <footer>
+        <p>MADE WITH <span class="heart">❤</span> BY <a href="https://nand-studios.com" target="_blank">nand-studios.com</a></p>
+    </footer>
 
     <script>
         function updateCountdown() {
