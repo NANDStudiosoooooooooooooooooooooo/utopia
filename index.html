@@ -19,6 +19,7 @@
             color: white;
             text-align: center;
             perspective: 1000px;
+            overflow: hidden; /* Prevent page content from scrolling */
         }
         .countdown-container {
             position: fixed;
@@ -90,7 +91,7 @@
             padding: 10px 20px;
             cursor: pointer;
             font-size: 1em;
-            transition: box-shadow 0.3s ease; /* Only box-shadow transition */
+            transition: box-shadow 0.3s ease, color 0.3s ease; /* Only box-shadow and color transition */
             border-radius: 20px;
             outline: none;
         }
@@ -247,9 +248,11 @@
             targetDate = new Date(date).getTime();
             document.getElementById('selectedCity').textContent = location.toUpperCase();
             
-            // Scroll countdown to top position
+            // Scroll countdown to top only when scrolling down
             const countdownContainer = document.getElementById('countdownContainer');
-            countdownContainer.style.top = '10px';
+            if (window.scrollY > 0) {
+                countdownContainer.style.top = '10px';
+            }
         }
 
         function updateCountdown() {
@@ -292,6 +295,24 @@
             const x = (window.innerWidth / 2 - e.pageX) / 50;
             const y = (window.innerHeight / 2 - e.pageY) / 50;
             countdown.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
+        });
+
+        // Adjust button text color on row hover
+        const tableRows = document.querySelectorAll('.concerts table tr');
+        tableRows.forEach(row => {
+            row.addEventListener('mouseover', () => {
+                const button = row.querySelector('.set-button');
+                if (button) {
+                    button.style.color = 'rgba(255, 255, 255, 0.7)';
+                }
+            });
+
+            row.addEventListener('mouseleave', () => {
+                const button = row.querySelector('.set-button');
+                if (button) {
+                    button.style.color = 'white';
+                }
+            });
         });
     </script>
 </body>
