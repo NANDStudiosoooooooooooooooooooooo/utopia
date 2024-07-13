@@ -232,11 +232,11 @@
     <footer>
         <p>MADE WITH <span class="heart">❤</span> BY <a href="https://nand-studios.com" target="_blank">NAND-STUDIOS.COM</a></p>
     </footer>
-
+    
     <script>
         let targetDate = new Date("July 20, 2024 18:00:00").getTime();
         let originalTop = '50%';
-
+    
         function setCountdown(date, location) {
             targetDate = new Date(date).getTime();
             document.getElementById('selectedCity').textContent = location.toUpperCase();
@@ -247,21 +247,21 @@
                 countdownContainer.style.top = '10px';
             }
         }
-
+    
         function updateCountdown() {
             const now = new Date().getTime();
             const distance = targetDate - now;
-
+    
             const days = Math.floor(distance / (1000 * 60 * 60 * 24));
             const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
             const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
             const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
+    
             document.getElementById("days").innerHTML = days + " Days";
             document.getElementById("hours").innerHTML = hours + " Hours";
             document.getElementById("minutes").innerHTML = minutes + " Minutes";
             document.getElementById("seconds").innerHTML = seconds + " Seconds";
-
+    
             if (distance < 0) {
                 clearInterval(countdownInterval);
                 document.getElementById("days").innerHTML = "0 Days";
@@ -270,10 +270,10 @@
                 document.getElementById("seconds").innerHTML = "0 Seconds";
             }
         }
-
+    
         const countdownInterval = setInterval(updateCountdown, 1000);
         updateCountdown();
-
+    
         document.addEventListener('scroll', () => {
             const countdownContainer = document.getElementById('countdownContainer');
             if (window.scrollY === 0) {
@@ -282,7 +282,7 @@
                 countdownContainer.style.top = '10px';
             }
         });
-
+    
         // Adjust button text color on row hover
         const tableRows = document.querySelectorAll('.concerts table tr');
         tableRows.forEach(row => {
@@ -292,13 +292,31 @@
                     button.style.color = 'rgba(255, 255, 255, 0.7)';
                 }
             });
-
+    
             row.addEventListener('mouseleave', () => {
                 const button = row.querySelector('.set-button');
                 if (button) {
                     button.style.color = 'white';
                 }
             });
+        });
+    
+        // Scroll countdown to top when scrolling down and return to center on button click or scroll to top
+        document.addEventListener('scroll', () => {
+            const countdownContainer = document.getElementById('countdownContainer');
+            const concertsSection = document.querySelector('.concerts');
+            const concertsSectionPosition = concertsSection.getBoundingClientRect().top;
+    
+            if (concertsSectionPosition < window.innerHeight && window.scrollY > 0) {
+                countdownContainer.style.top = '10px';
+            } else if (window.scrollY === 0) {
+                countdownContainer.style.top = originalTop;
+            }
+        });
+    
+        document.querySelector('.set-button').addEventListener('click', () => {
+            const countdownContainer = document.getElementById('countdownContainer');
+            countdownContainer.style.top = originalTop;
         });
     </script>
 </body>
