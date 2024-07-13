@@ -18,6 +18,7 @@
             background: black;
             color: white;
             text-align: center;
+            perspective: 1000px;
             overflow: hidden; /* Prevent page content from scrolling */
         }
         .countdown-container {
@@ -29,8 +30,8 @@
             background-color: black;
             padding: 20px;
             border-radius: 10px;
-            transition: top 0.3s ease-in-out, box-shadow 0.1s ease-in-out; /* Smooth transition for top position and box-shadow */
-            box-shadow: 0 0 50px rgba(255, 255, 255, 0.1); /* Initial light glow */
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            transition: top 0.3s ease-in-out; /* Smooth transition for top position */
         }
         .countdown {
             font-size: 2em;
@@ -38,8 +39,9 @@
             flex-direction: row;
             justify-content: space-around;
             width: 100%;
-            transition: transform 0.1s, box-shadow 0.1s ease-in-out;
+            transition: transform 0.1s;
             margin-bottom: 20px;
+            animation: fadeIn 1s ease-in-out; /* Fade in animation */
         }
         .countdown div {
             margin: 10px;
@@ -47,6 +49,7 @@
         .concerts {
             width: 80%;
             margin-top: 20px;
+            animation: fadeIn 1s ease-in-out;
         }
         @keyframes fadeIn {
             from { opacity: 0; }
@@ -122,9 +125,6 @@
             }
             .concerts {
                 width: 100%;
-            }
-            .countdown-container {
-                width: 90%;
             }
         }
     </style>
@@ -203,12 +203,6 @@
                 <td><button class="set-button" onclick="setCountdown('July 30, 2024 18:00:00', 'PARIS, FRANCE')">SET</button></td>
             </tr>
             <tr>
-                <td>AUGUST 1</td>
-                <td>LISBON, PORTUGAL</td>
-                <td>MEO ARENA</td>
-                <td><button class="set-button" onclick="setCountdown('August 1, 2024 18:00:00', 'LISBON, PORTUGAL')">SET</button></td>
-            </tr>
-            <tr>
                 <td>AUGUST 2</td>
                 <td>LISBON, PORTUGAL</td>
                 <td>MEO ARENA</td>
@@ -246,12 +240,12 @@
         function setCountdown(date, location) {
             targetDate = new Date(date).getTime();
             document.getElementById('selectedCity').textContent = location.toUpperCase();
-
-            // Reset countdown to original top position on button click
-            document.getElementById('countdownContainer').style.top = originalTop;
-
-            // Fade-in animation for the countdown text
-            document.getElementById('countdown').style.animation = 'fadeIn 1s ease-in-out';
+            
+            // Scroll countdown to top only when scrolling down
+            const countdownContainer = document.getElementById('countdownContainer');
+            if (window.scrollY > 0) {
+                countdownContainer.style.top = '10px';
+            }
         }
 
         function updateCountdown() {
@@ -305,19 +299,6 @@
                     button.style.color = 'white';
                 }
             });
-        });
-
-        // Mouse move event to create glow effect based on proximity to the countdown
-        document.addEventListener('mousemove', (e) => {
-            const countdownContainer = document.getElementById('countdownContainer');
-            const rect = countdownContainer.getBoundingClientRect();
-            const x = e.clientX - rect.left - rect.width / 2;
-            const y = e.clientY - rect.top - rect.height / 2;
-            const maxDistance = Math.max(rect.width, rect.height) / 2;
-            const distance = Math.sqrt(x * x + y * y);
-            const intensity = 1 - Math.min(distance / maxDistance, 1);
-
-            countdownContainer.style.boxShadow = `0 0 20px rgba(255, 255, 255, ${0.1 + 0.4 * intensity})`;
         });
     </script>
 </body>
