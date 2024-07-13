@@ -75,12 +75,14 @@
             background-color: transparent;
             font-weight: normal;
             color: rgba(255, 255, 255, 0.7);
+            text-align: right; /* Right align the header text */
+            padding-right: 20px; /* Adjust padding for header cells */
         }
         .concerts td {
             color: rgba(255, 255, 255, 1);
         }
         .concerts tr:hover td {
-            color: rgba(255, 255, 255, 0.7);
+            color: rgba(255, 255, 255, 0.5); /* Darker color on row hover */
         }
         .set-button {
             background-color: transparent;
@@ -318,6 +320,26 @@
                 }
             });
         });
+
+        // Disable expired event buttons and make text darker
+        function disableExpiredEvents() {
+            const currentDate = new Date().getTime();
+
+            tableRows.forEach(row => {
+                const button = row.querySelector('.set-button');
+                if (button) {
+                    const dateString = row.cells[0].textContent + ', ' + row.cells[1].textContent;
+                    const eventDate = new Date(dateString).getTime();
+
+                    if (eventDate < currentDate) {
+                        button.disabled = true;
+                        row.style.color = 'rgba(255, 255, 255, 0.5)';
+                    }
+                }
+            });
+        }
+
+        disableExpiredEvents();
 
         // Mouse move event to create glow effect based on proximity to the countdown
         document.addEventListener('mousemove', (e) => {
