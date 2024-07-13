@@ -75,7 +75,7 @@
             background-color: transparent;
             font-weight: normal;
             color: rgba(255, 255, 255, 0.7);
-            text-align: right; /* Right align the header text */
+            text-align: left; /* Left align the header text */
             padding-right: 20px; /* Adjust padding for header cells */
         }
         .concerts td {
@@ -159,7 +159,7 @@
                     <th>Date</th>
                     <th>City</th>
                     <th>Venue</th>
-                    <th>Set</th>
+                    <th style="text-align: right;">Set</th>
                 </tr>
                 <tr>
                     <td>JULY 13</td>
@@ -204,16 +204,22 @@
                     <td><button class="set-button" onclick="setCountdown('July 26, 2024 18:00:00', 'FRANKFURT, GERMANY')">SET</button></td>
                 </tr>
                 <tr>
-                    <td>JULY 27</td>
-                    <td>FRANKFURT, GERMANY</td>
-                    <td>DEUTSCHE BANK PARK</td>
-                    <td><button class="set-button" onclick="setCountdown('July 27, 2024 18:00:00', 'FRANKFURT, GERMANY')">SET</button></td>
+                    <td>JULY 28</td>
+                    <td>LONDON, UK</td>
+                    <td>STADIUM</td>
+                    <td><button class="set-button" onclick="setCountdown('July 28, 2024 18:00:00', 'LONDON, UK')">SET</button></td>
                 </tr>
                 <tr>
                     <td>JULY 30</td>
                     <td>VIENNA, AUSTRIA</td>
                     <td>ERNS-HAPPEL STADION</td>
                     <td><button class="set-button" onclick="setCountdown('July 30, 2024 18:00:00', 'VIENNA, AUSTRIA')">SET</button></td>
+                </tr>
+                <tr>
+                    <td>AUGUST 1</td>
+                    <td>BERLIN, GERMANY</td>
+                    <td>OLYMPIASTADION</td>
+                    <td><button class="set-button" onclick="setCountdown('August 1, 2024 18:00:00', 'BERLIN, GERMANY')">SET</button></td>
                 </tr>
                 <tr>
                     <td>AUGUST 2</td>
@@ -270,6 +276,8 @@
             countdowns.forEach(button => {
                 button.disabled = false;
             });
+
+            updateCountdown();
         }
 
         function updateCountdown() {
