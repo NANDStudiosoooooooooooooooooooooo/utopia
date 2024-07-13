@@ -46,13 +46,6 @@
         .countdown div {
             margin: 10px;
         }
-        .seconds {
-            animation: pulse 1s infinite;
-        }
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-        }
         .concerts {
             width: 80%;
             margin-top: 20px;
@@ -142,7 +135,7 @@
             <div id="days">0 Days</div>
             <div id="hours">0 Hours</div>
             <div id="minutes">0 Minutes</div>
-            <div id="seconds" class="seconds">0 Seconds</div>
+            <div id="seconds">0 Seconds</div>
         </div>
         <div id="selectedCity">COLOGNE, GERMANY</div>
     </div>
@@ -288,13 +281,6 @@
             } else {
                 countdownContainer.style.top = '10px';
             }
-        });
-
-        document.addEventListener('mousemove', (e) => {
-            const countdown = document.getElementById('countdown');
-            const x = (window.innerWidth / 2 - e.pageX) / 50;
-            const y = (window.innerHeight / 2 - e.pageY) / 50;
-            countdown.style.transform = `rotateY(${x}deg) rotateX(${y}deg)`;
         });
 
         // Adjust button text color on row hover
