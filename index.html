@@ -71,14 +71,21 @@
             color: white;
         }
         .concerts th, .concerts td {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Dünne Linien und leicht dunkler */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Dünne Linien */
             padding: 10px;
-            text-align: center;
-            color: rgba(255, 255, 255, 0.7); /* Textfarbe etwas dunkler */
+            text-align: left; /* Text linksbündig */
+            transition: color 0.3s ease-in-out; /* Smooth color transition */
         }
         .concerts th {
             background-color: transparent;
             font-weight: normal;
+            color: rgba(255, 255, 255, 0.7); /* Dunklerer Header-Text */
+        }
+        .concerts td {
+            color: rgba(255, 255, 255, 1); /* Weißer Text in den Zellen */
+        }
+        .concerts tr:hover td {
+            color: rgba(255, 255, 255, 0.7); /* Bei Hover: leicht gedämpfte Textfarbe */
         }
         .set-button {
             background-color: transparent;
@@ -87,14 +94,17 @@
             padding: 10px 20px;
             cursor: pointer;
             font-size: 1em;
-            transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
+            transition: color 0.3s ease, box-shadow 0.3s ease; /* Nur Farbwechsel */
             border-radius: 20px;
             outline: none;
         }
         .set-button:hover {
-            background-color: white;
-            color: black;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
+            color: black; /* Schrift schwarz bei Hover */
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Weißer Schatten */
+        }
+        .set-button:active {
+            color: black; /* Schrift schwarz beim Drücken */
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Weißer Schatten */
         }
         footer {
             position: relative;
@@ -199,15 +209,9 @@
             </tr>
             <tr>
                 <td>JULY 30</td>
-                <td>MADRID, SPAIN</td>
-                <td>WIZNK CENTER</td>
-                <td><button class="set-button" onclick="setCountdown('July 30, 2024 18:00:00', 'MADRID, SPAIN')">SET</button></td>
-            </tr>
-            <tr>
-                <td>JULY 31</td>
-                <td>MADRID, SPAIN</td>
-                <td>WIZNK CENTER</td>
-                <td><button class="set-button" onclick="setCountdown('July 31, 2024 18:00:00', 'MADRID, SPAIN')">SET</button></td>
+                <td>PARIS, FRANCE</td>
+                <td>PARC DES PRINCES</td>
+                <td><button class="set-button" onclick="setCountdown('July 30, 2024 18:00:00', 'PARIS, FRANCE')">SET</button></td>
             </tr>
             <tr>
                 <td>AUGUST 2</td>
