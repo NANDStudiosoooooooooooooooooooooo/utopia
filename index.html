@@ -258,54 +258,45 @@
         let targetDate = new Date("July 20, 2024 18:00:00").getTime();
         let originalTop = '50%';
 
-        function setCountdown(dateString, city) {
-            const countdownDate = new Date(dateString).getTime();
-            const countdownContainer = document.getElementById('countdownContainer');
-            countdownContainer.style.top = '45%';
-            setTimeout(() => countdownContainer.style.top = '50%', 300);
-            
-            document.getElementById('selectedCity').innerText = city.toUpperCase();
-            
-            const interval = setInterval(function () {
-                const now = new Date().getTime();
-                const distance = countdownDate - now;
+        function setCountdown(date, location) {
+     targetDate = new Date(date).getTime();
+     document.getElementById('selectedCity').textContent = location.toUpperCase();
 
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+     // Reset countdown to original top position on button click
+     document.getElementById('countdownContainer').style.top = originalTop;
 
-                document.getElementById('days').innerText = days;
-                document.getElementById('hours').innerText = hours;
-                document.getElementById('minutes').innerText = minutes;
-                document.getElementById('seconds').innerText = seconds;
+     // Fade-in animation for the countdown text
+     const countdown = document.getElementById('countdown');
+     countdown.style.animation = 'fadeIn 1s ease-in-out';
+     countdown.addEventListener('animationend', () => {
+        countdown.style.animation = '';
+     });
 
-                if (distance < 0) {
-                    clearInterval(interval);
-                    document.getElementById('countdown').innerHTML = "EXPIRED";
-                }
-            }, 1000);
-        }
+     // Show random characters before showing the countdown
+     const randomChars = "!@#$%^&*()_+[]{}|;:',.<>?/";
+     const countdownElements = ["days", "hours", "minutes", "seconds"];
 
-        document.addEventListener("DOMContentLoaded", function () {
-            setCountdown('July 20, 2024 18:00:00', 'COLOGNE, GERMANY');
-            setInterval(generateRandomSymbols, 5000); // generate random symbols every 5 seconds
-        });
+     countdownElements.forEach(id => {
+        let element = document.getElementById(id);
+        let originalText = element.innerText;
 
-        function generateRandomSymbols() {
-            const symbols = "!@#$%^&*()_+{}|:<>?`~";
-            const randomIndex = Math.floor(Math.random() * symbols.length);
-            const randomSymbol = symbols[randomIndex];
-            const symbolElement = document.createElement('div');
-            symbolElement.textContent = randomSymbol;
-            symbolElement.style.position = 'absolute';
-            symbolElement.style.left = Math.random() * 100 + 'vw';
-            symbolElement.style.top = Math.random() * 100 + 'vh';
-            symbolElement.style.fontSize = Math.random() * 2 + 1 + 'em';
-            symbolElement.style.animation = 'fadeIn 3s forwards, moveRandomly 3s forwards';
-            document.body.appendChild(symbolElement);
-            setTimeout(() => symbolElement.remove(), 3000); // remove after 3 seconds
-        }
+        let interval = setInterval(() => {
+            element.innerText = randomChars.charAt(Math.floor(Math.random() * randomChars.length));
+        }, 50);
+
+        setTimeout(() => {
+            clearInterval(interval);
+            element.innerText = originalText;
+            updateCountdown();
+        }, 1000);
+    });
+
+    // Reset other countdowns to 0
+    const countdowns = document.querySelectorAll('.set-button');
+    countdowns.forEach(button => {
+        button.disabled = false;
+    });
+}
 
         function updateCountdown() {
             const now = new Date().getTime();
