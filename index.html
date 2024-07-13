@@ -18,10 +18,18 @@
             background: black;
             color: white;
             text-align: center;
-            overflow: hidden; /* Prevent page content from scrolling */
+            overflow: hidden;
+        }
+        .content-wrapper {
+            overflow-y: auto; /* Enable vertical scrolling */
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
         .countdown-container {
-            position: fixed;
+            position: absolute;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
@@ -29,8 +37,8 @@
             background-color: black;
             padding: 20px;
             border-radius: 10px;
-            transition: top 0.3s ease-in-out, box-shadow 0.1s ease-in-out; /* Smooth transition for top position and box-shadow */
-            box-shadow: 0 0 50px rgba(255, 255, 255, 0.1); /* Initial light glow */
+            transition: top 0.3s ease-in-out, box-shadow 0.1s ease-in-out;
+            box-shadow: 0 0 50px rgba(255, 255, 255, 0.1);
         }
         .countdown {
             font-size: 2em;
@@ -58,38 +66,39 @@
             margin-bottom: 20px;
         }
         .concerts th, .concerts td {
-            border-bottom: 1px solid rgba(255, 255, 255, 0.7); /* Same color as darker text */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.7);
             padding: 10px;
             text-align: left;
-            transition: color 0.3s ease-in-out; /* Smooth color transition */
+            transition: color 0.3s ease-in-out;
         }
         .concerts th {
             background-color: transparent;
             font-weight: normal;
-            color: rgba(255, 255, 255, 0.7); /* Darker header text */
+            color: rgba(255, 255, 255, 0.7);
         }
         .concerts td {
-            color: rgba(255, 255, 255, 1); /* White text in cells */
+            color: rgba(255, 255, 255, 1);
         }
         .concerts tr:hover td {
-            color: rgba(255, 255, 255, 0.7); /* Slightly muted text color on hover */
+            color: rgba(255, 255, 255, 0.7);
         }
         .set-button {
             background-color: transparent;
             color: white;
-            border: 1px solid white;
+            border: 1px solid rgba(255, 255, 255, 0.7);
             padding: 10px 20px;
             cursor: pointer;
             font-size: 1em;
-            transition: box-shadow 0.3s ease, color 0.3s ease; /* Only box-shadow and color transition */
+            transition: box-shadow 0.3s ease, color 0.3s ease;
             border-radius: 20px;
             outline: none;
+            float: right; /* Right align the set button */
         }
         .set-button:hover {
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* White shadow */
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
         }
         .set-button:active {
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* White shadow on click */
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
         }
         footer {
             position: relative;
@@ -130,108 +139,110 @@
     </style>
 </head>
 <body>
-    <div class="countdown-container" id="countdownContainer">
-        <div class="countdown" id="countdown">
-            <div id="days">0 Days</div>
-            <div id="hours">0 Hours</div>
-            <div id="minutes">0 Minutes</div>
-            <div id="seconds">0 Seconds</div>
+    <div class="content-wrapper">
+        <div class="countdown-container" id="countdownContainer">
+            <div class="countdown" id="countdown">
+                <div id="days">0 Days</div>
+                <div id="hours">0 Hours</div>
+                <div id="minutes">0 Minutes</div>
+                <div id="seconds">0 Seconds</div>
+            </div>
+            <div id="selectedCity">COLOGNE, GERMANY</div>
         </div>
-        <div id="selectedCity">COLOGNE, GERMANY</div>
-    </div>
 
-    <div class="concerts">
-        <table>
-            <tr>
-                <th>Date</th>
-                <th>City</th>
-                <th>Venue</th>
-                <th>Set</th>
-            </tr>
-            <tr>
-                <td>JULY 13</td>
-                <td>MANCHESTER, UK</td>
-                <td>CO-OP LIVE</td>
-                <td><button class="set-button" onclick="setCountdown('July 13, 2024 18:00:00', 'MANCHESTER, UK')">SET</button></td>
-            </tr>
-            <tr>
-                <td>JULY 14</td>
-                <td>CONSTINESTI, ROMANIA</td>
-                <td>BEACH PLEASE</td>
-                <td><button class="set-button" onclick="setCountdown('July 14, 2024 18:00:00', 'CONSTINESTI, ROMANIA')">SET</button></td>
-            </tr>
-            <tr>
-                <td>JULY 16</td>
-                <td>HAMBURG, GERMANY</td>
-                <td>BARCLAYS ARENA</td>
-                <td><button class="set-button" onclick="setCountdown('July 16, 2024 18:00:00', 'HAMBURG, GERMANY')">SET</button></td>
-            </tr>
-            <tr>
-                <td>JULY 18</td>
-                <td>PRAGUE, CZECH REPUBLIC</td>
-                <td>O2 ARENA</td>
-                <td><button class="set-button" onclick="setCountdown('July 18, 2024 18:00:00', 'PRAGUE, CZECH REPUBLIC')">SET</button></td>
-            </tr>
-            <tr>
-                <td>JULY 20</td>
-                <td>COLOGNE, GERMANY</td>
-                <td>RHEIN ENERGIE STADION</td>
-                <td><button class="set-button" onclick="setCountdown('July 20, 2024 18:00:00', 'COLOGNE, GERMANY')">SET</button></td>
-            </tr>
-            <tr>
-                <td>JULY 23</td>
-                <td>MILAN, ITALY</td>
-                <td>IPPODROMO SNAI LA MAURA</td>
-                <td><button class="set-button" onclick="setCountdown('July 23, 2024 18:00:00', 'MILAN, ITALY')">SET</button></td>
-            </tr>
-            <tr>
-                <td>JULY 26</td>
-                <td>FRANKFURT, GERMANY</td>
-                <td>DEUTSCHE BANK PARK</td>
-                <td><button class="set-button" onclick="setCountdown('July 26, 2024 18:00:00', 'FRANKFURT, GERMANY')">SET</button></td>
-            </tr>
-            <tr>
-                <td>JULY 27</td>
-                <td>FRANKFURT, GERMANY</td>
-                <td>DEUTSCHE BANK PARK</td>
-                <td><button class="set-button" onclick="setCountdown('July 27, 2024 18:00:00', 'FRANKFURT, GERMANY')">SET</button></td>
-            </tr>
-            <tr>
-                <td>JULY 30</td>
-                <td>PARIS, FRANCE</td>
-                <td>PARC DES PRINCES</td>
-                <td><button class="set-button" onclick="setCountdown('July 30, 2024 18:00:00', 'PARIS, FRANCE')">SET</button></td>
-            </tr>
-            <tr>
-                <td>AUGUST 2</td>
-                <td>LISBON, PORTUGAL</td>
-                <td>MEO ARENA</td>
-                <td><button class="set-button" onclick="setCountdown('August 2, 2024 18:00:00', 'LISBON, PORTUGAL')">SET</button></td>
-            </tr>
-            <tr>
-                <td>AUGUST 3</td>
-                <td>LISBON, PORTUGAL</td>
-                <td>MEO ARENA</td>
-                <td><button class="set-button" onclick="setCountdown('August 3, 2024 18:00:00', 'LISBON, PORTUGAL')">SET</button></td>
-            </tr>
-            <tr>
-                <td>AUGUST 4</td>
-                <td>LISBON, PORTUGAL</td>
-                <td>MEO ARENA</td>
-                <td><button class="set-button" onclick="setCountdown('August 4, 2024 18:00:00', 'LISBON, PORTUGAL')">SET</button></td>
-            </tr>
-            <tr>
-                <td>SEPTEMBER 13</td>
-                <td>RIO DE JANEIRO, BRAZIL</td>
-                <td>ROCK IN RIO</td>
-                <td><button class="set-button" onclick="setCountdown('September 13, 2024 18:00:00', 'RIO DE JANEIRO, BRAZIL')">SET</button></td>
-            </tr>
-        </table>
-    </div>
+        <div class="concerts">
+            <table>
+                <tr>
+                    <th>Date</th>
+                    <th>City</th>
+                    <th>Venue</th>
+                    <th>Set</th>
+                </tr>
+                <tr>
+                    <td>JULY 13</td>
+                    <td>MANCHESTER, UK</td>
+                    <td>CO-OP LIVE</td>
+                    <td><button class="set-button" onclick="setCountdown('July 13, 2024 18:00:00', 'MANCHESTER, UK')">SET</button></td>
+                </tr>
+                <tr>
+                    <td>JULY 14</td>
+                    <td>CONSTINESTI, ROMANIA</td>
+                    <td>BEACH PLEASE</td>
+                    <td><button class="set-button" onclick="setCountdown('July 14, 2024 18:00:00', 'CONSTINESTI, ROMANIA')">SET</button></td>
+                </tr>
+                <tr>
+                    <td>JULY 16</td>
+                    <td>HAMBURG, GERMANY</td>
+                    <td>BARCLAYS ARENA</td>
+                    <td><button class="set-button" onclick="setCountdown('July 16, 2024 18:00:00', 'HAMBURG, GERMANY')">SET</button></td>
+                </tr>
+                <tr>
+                    <td>JULY 18</td>
+                    <td>PRAGUE, CZECH REPUBLIC</td>
+                    <td>O2 ARENA</td>
+                    <td><button class="set-button" onclick="setCountdown('July 18, 2024 18:00:00', 'PRAGUE, CZECH REPUBLIC')">SET</button></td>
+                </tr>
+                <tr>
+                    <td>JULY 20</td>
+                    <td>COLOGNE, GERMANY</td>
+                    <td>RHEIN ENERGIE STADION</td>
+                    <td><button class="set-button" onclick="setCountdown('July 20, 2024 18:00:00', 'COLOGNE, GERMANY')">SET</button></td>
+                </tr>
+                <tr>
+                    <td>JULY 23</td>
+                    <td>MILAN, ITALY</td>
+                    <td>IPPODROMO SNAI LA MAURA</td>
+                    <td><button class="set-button" onclick="setCountdown('July 23, 2024 18:00:00', 'MILAN, ITALY')">SET</button></td>
+                </tr>
+                <tr>
+                    <td>JULY 26</td>
+                    <td>FRANKFURT, GERMANY</td>
+                    <td>DEUTSCHE BANK PARK</td>
+                    <td><button class="set-button" onclick="setCountdown('July 26, 2024 18:00:00', 'FRANKFURT, GERMANY')">SET</button></td>
+                </tr>
+                <tr>
+                    <td>JULY 27</td>
+                    <td>FRANKFURT, GERMANY</td>
+                    <td>DEUTSCHE BANK PARK</td>
+                    <td><button class="set-button" onclick="setCountdown('July 27, 2024 18:00:00', 'FRANKFURT, GERMANY')">SET</button></td>
+                </tr>
+                <tr>
+                    <td>JULY 30</td>
+                    <td>PARIS, FRANCE</td>
+                    <td>PARC DES PRINCES</td>
+                    <td><button class="set-button" onclick="setCountdown('July 30, 2024 18:00:00', 'PARIS, FRANCE')">SET</button></td>
+                </tr>
+                <tr>
+                    <td>AUGUST 2</td>
+                    <td>LISBON, PORTUGAL</td>
+                    <td>MEO ARENA</td>
+                    <td><button class="set-button" onclick="setCountdown('August 2, 2024 18:00:00', 'LISBON, PORTUGAL')">SET</button></td>
+                </tr>
+                <tr>
+                    <td>AUGUST 3</td>
+                    <td>LISBON, PORTUGAL</td>
+                    <td>MEO ARENA</td>
+                    <td><button class="set-button" onclick="setCountdown('August 3, 2024 18:00:00', 'LISBON, PORTUGAL')">SET</button></td>
+                </tr>
+                <tr>
+                    <td>AUGUST 4</td>
+                    <td>LISBON, PORTUGAL</td>
+                    <td>MEO ARENA</td>
+                    <td><button class="set-button" onclick="setCountdown('August 4, 2024 18:00:00', 'LISBON, PORTUGAL')">SET</button></td>
+                </tr>
+                <tr>
+                    <td>SEPTEMBER 13</td>
+                    <td>RIO DE JANEIRO, BRAZIL</td>
+                    <td>ROCK IN RIO</td>
+                    <td><button class="set-button" onclick="setCountdown('September 13, 2024 18:00:00', 'RIO DE JANEIRO, BRAZIL')">SET</button></td>
+                </tr>
+            </table>
+        </div>
 
-    <footer>
-        <p>MADE WITH <span class="heart">❤</span> BY <a href="https://nand-studios.com" target="_blank">NAND-STUDIOS.COM</a></p>
-    </footer>
+        <footer>
+            <p>MADE WITH <span class="heart">❤</span> BY <a href="https://nand-studios.com" target="_blank">NAND-STUDIOS.COM</a></p>
+        </footer>
+    </div>
 
     <script>
         let targetDate = new Date("July 20, 2024 18:00:00").getTime();
@@ -276,10 +287,13 @@
 
         document.addEventListener('scroll', () => {
             const countdownContainer = document.getElementById('countdownContainer');
-            if (window.scrollY === 0) {
-                countdownContainer.style.top = originalTop;
-            } else {
+            const contentWrapper = document.querySelector('.content-wrapper');
+            const wrapperTop = contentWrapper.getBoundingClientRect().top;
+
+            if (wrapperTop < 0) {
                 countdownContainer.style.top = '10px';
+            } else {
+                countdownContainer.style.top = originalTop;
             }
         });
 
