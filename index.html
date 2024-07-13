@@ -15,7 +15,7 @@
             flex-direction: column;
             height: 100vh;
             margin: 0;
-            background: black; /* Hintergrund auf Schwarz setzen */
+            background: black;
             color: white;
             text-align: center;
             perspective: 1000px;
@@ -26,10 +26,10 @@
             left: 50%;
             transform: translate(-50%, -50%);
             z-index: 1000;
-            background-color: black; /* Hintergrund des Countdowns auf Schwarz setzen */
+            background-color: black;
             padding: 20px;
             border-radius: 10px;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Glow-Effekt wie bei Buttons */
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
         }
         .countdown {
             font-size: 2em;
@@ -68,15 +68,17 @@
             width: 100%;
             border-collapse: collapse;
             margin-bottom: 20px;
-            color: white; /* Textfarbe weiß */
+            color: white;
         }
         .concerts th, .concerts td {
-            border-bottom: 1px solid white; /* Nur untere Linie hinzufügen */
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1); /* Dünne Linien und leicht dunkler */
             padding: 10px;
             text-align: center;
+            color: rgba(255, 255, 255, 0.7); /* Textfarbe etwas dunkler */
         }
         .concerts th {
-            background-color: transparent; /* Hintergrundfarbe transparent setzen */
+            background-color: transparent;
+            font-weight: normal;
         }
         .set-button {
             background-color: transparent;
@@ -86,17 +88,17 @@
             cursor: pointer;
             font-size: 1em;
             transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease;
-            border-radius: 20px; /* Abgerundete Ecken hinzufügen */
-            outline: none; /* Entfernen der Standardumrandung */
+            border-radius: 20px;
+            outline: none;
         }
         .set-button:hover {
             background-color: white;
             color: black;
-            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5); /* Glow-Effekt wie bei Buttons */
+            box-shadow: 0 0 20px rgba(255, 255, 255, 0.5);
         }
         footer {
             position: relative;
-            margin-top: 20px; /* Abstand zum Inhalt hinzufügen */
+            margin-top: 20px;
             font-size: 1em;
             text-transform: uppercase;
             letter-spacing: 2px;
@@ -136,7 +138,7 @@
             <div id="minutes">0 Minutes</div>
             <div id="seconds" class="seconds">0 Seconds</div>
         </div>
-        <div id="selectedCity">COLOGNE, GERMANY</div> <!-- Aktuell ausgewählte Stadt unter dem Countdown -->
+        <div id="selectedCity">COLOGNE, GERMANY</div>
     </div>
 
     <div class="concerts">
