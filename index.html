@@ -243,19 +243,19 @@
                     <td>SEPTEMBER 7</td>
                     <td>SANTIAGO, CHILE</td>
                     <td>ESTADIO BICENTENARIO LA FLORIDA</td>
-                    <td><button class="set-button" onclick="setCountdown('September 7, 2024 18:00:00', 'SANTIAGO, CHILE')">TICKETS</button></td>
+                    <td><button class="set-button" onclick="setCountdown('September 7, 2024 18:00:00', 'SANTIAGO, CHILE')">SET</button></td>
                 </tr>
                 <tr>
                     <td>SEPTEMBER 9</td>
                     <td>BUENOS AIRES, ARGENTINA</td>
                     <td>MOVISTAR ARENA</td>
-                    <td><button class="set-button" onclick="setCountdown('September 9, 2024 18:00:00', 'BUENOS AIRES, ARGENTINA')">TICKETS</button></td>
+                    <td><button class="set-button" onclick="setCountdown('September 9, 2024 18:00:00', 'BUENOS AIRES, ARGENTINA')">SET</button></td>
                 </tr>
                 <tr>
                     <td>SEPTEMBER 11</td>
                     <td>SAO PAOLO, BRAZIL</td>
                     <td>ALLIANZ PARQUE</td>
-                    <td><button class="set-button" onclick="setCountdown('September 11, 2024 18:00:00', 'SAO PAOLO, BRAZIL')">TICKETS</button></td>
+                    <td><button class="set-button" onclick="setCountdown('September 11, 2024 18:00:00', 'SAO PAOLO, BRAZIL')">SET</button></td>
                 </tr>
                 <tr>
                     <td>SEPTEMBER 13</td>
@@ -267,49 +267,49 @@
                     <td>SEPTEMBER 15</td>
                     <td>BOGOTA, COLOMBIA</td>
                     <td>COLISEO MEDPLUS</td>
-                    <td><button class="set-button" onclick="setCountdown('September 15, 2024 18:00:00', 'BOGOTA, COLOMBIA')">TICKETS</button></td>
+                    <td><button class="set-button" onclick="setCountdown('September 15, 2024 18:00:00', 'BOGOTA, COLOMBIA')">SET</button></td>
                 </tr>
                 <tr>
                     <td>SEPTEMBER 18</td>
                     <td>SAN JUAN, PUERTO RICO</td>
                     <td>COLISEO DE PUERTO RICO</td>
-                    <td><button class="set-button" onclick="setCountdown('September 18, 2024 18:00:00', 'SAN JUAN, PUERTO RICO')">TICKETS</button></td>
+                    <td><button class="set-button" onclick="setCountdown('September 18, 2024 18:00:00', 'SAN JUAN, PUERTO RICO')">SET</button></td>
                 </tr>
                 <tr>
                     <td>SEPTEMBER 21</td>
                     <td>MEXICO CITY, MEXICO</td>
                     <td>ESPLANADA ESTADIO AZTECA</td>
-                    <td><button class="set-button" onclick="setCountdown('September 21, 2024 18:00:00', 'MEXICO CITY, MEXICO')">TICKETS</button></td>
+                    <td><button class="set-button" onclick="setCountdown('September 21, 2024 18:00:00', 'MEXICO CITY, MEXICO')">SET</button></td>
                 </tr>
                 <tr>
                     <td>OCTOBER 9</td>
                     <td>EAST RUTHERFORD, NJ</td>
                     <td>METLIFE STADIUM</td>
-                    <td><button class="set-button" onclick="setCountdown('October 9, 2024 18:00:00', 'EAST RUTHERFORD, NJ')">TICKETS</button></td>
+                    <td><button class="set-button" onclick="setCountdown('October 9, 2024 18:00:00', 'EAST RUTHERFORD, NJ')">SET</button></td>
                 </tr>
                 <tr>
                     <td>OCTOBER 17</td>
                     <td>SYDNEY, AUSTRALIA</td>
                     <td>ALLIANZ STADIUM</td>
-                    <td><button class="set-button" onclick="setCountdown('October 17, 2024 18:00:00', 'SYDNEY, AUSTRALIA')">TICKETS</button></td>
+                    <td><button class="set-button" onclick="setCountdown('October 17, 2024 18:00:00', 'SYDNEY, AUSTRALIA')">SET</button></td>
                 </tr>
                 <tr>
                     <td>OCTOBER 22</td>
                     <td>MELBOURNE, AUSTRALIA</td>
                     <td>MARVEL STADIUM</td>
-                    <td><button class="set-button" onclick="setCountdown('October 22, 2024 18:00:00', 'MELBOURNE, AUSTRALIA')">TICKETS</button></td>
+                    <td><button class="set-button" onclick="setCountdown('October 22, 2024 18:00:00', 'MELBOURNE, AUSTRALIA')">SET</button></td>
                 </tr>
                 <tr>
                     <td>OCTOBER 26</td>
                     <td>BRISBANE, AUSTRALIA</td>
                     <td>SUNCORP STADIUM</td>
-                    <td><button class="set-button" onclick="setCountdown('October 26, 2024 18:00:00', 'BRISBANE, AUSTRALIA')">TICKETS</button></td>
+                    <td><button class="set-button" onclick="setCountdown('October 26, 2024 18:00:00', 'BRISBANE, AUSTRALIA')">SET</button></td>
                 </tr>
                 <tr>
                     <td>OCTOBER 31</td>
                     <td>AUCKLAND, NEW ZEALAND</td>
                     <td>EDEN PARK</td>
-                    <td><button class="set-button" onclick="setCountdown('October 31, 2024 18:00:00', 'AUCKLAND, NEW ZEALAND')">TICKETS</button></td>
+                    <td><button class="set-button" onclick="setCountdown('October 31, 2024 18:00:00', 'AUCKLAND, NEW ZEALAND')">SET</button></td>
                 </tr>
             </table>
             
@@ -473,22 +473,22 @@
                 // Vergleichen Sie das Event-Datum mit dem aktuellen Datum
                 if (eventDate > now) {
                     if (!nextEventFound) {
-                        // Wenn dies das nächste Event ist, setzen Sie den Button auf "SET" oder "TICKETS"
+                        // Wenn dies das nächste Event ist, setzen Sie den Button auf "SET" oder "SET"
                         const button = row.querySelector("button");
                         button.textContent = "SET"; // Setzen Sie den Button auf "SET"
                         button.style.backgroundColor = "#4CAF50"; // Grün für "SET" (kann nach Wunsch geändert werden)
                         nextEventFound = true;
                     } else {
-                        // Für alle folgenden Events setzen wir die Schaltfläche auf "TICKETS"
+                        // Für alle folgenden Events setzen wir die Schaltfläche auf "SET"
                         const button = row.querySelector("button");
-                        button.textContent = "TICKETS"; // Setzen Sie den Button auf "TICKETS"
-                        button.style.backgroundColor = "#f44336"; // Rot für "TICKETS" (kann nach Wunsch geändert werden)
+                        button.textContent = "SET"; // Setzen Sie den Button auf "SET"
+                        button.style.backgroundColor = "#f44336"; // Rot für "SET" (kann nach Wunsch geändert werden)
                     }
                 } else {
-                    // Für alle vergangene Events setzen wir die Schaltfläche auf "TICKETS"
+                    // Für alle vergangene Events setzen wir die Schaltfläche auf "SET"
                     const button = row.querySelector("button");
-                    button.textContent = "TICKETS"; // Setzen Sie den Button auf "TICKETS"
-                    button.style.backgroundColor = "#f44336"; // Rot für "TICKETS" (kann nach Wunsch geändert werden)
+                    button.textContent = "SET"; // Setzen Sie den Button auf "SET"
+                    button.style.backgroundColor = "#f44336"; // Rot für "SET" (kann nach Wunsch geändert werden)
                 }
             });
         }
