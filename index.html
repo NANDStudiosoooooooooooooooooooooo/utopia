@@ -453,5 +453,52 @@
             countdownContainer.style.boxShadow = `0 0 20px rgba(255, 255, 255, ${0.1 + 0.4 * intensity})`;
         });
     </script>
+
+    <script> //set next EVENT
+      document.addEventListener("DOMContentLoaded", function() {
+        function updateUpcomingEvent() {
+            // Holen Sie sich das aktuelle Datum und die Uhrzeit
+            const now = new Date();
+    
+            // Holen Sie sich alle Zeilen der Tabelle (außer der Kopfzeile)
+            const rows = document.querySelectorAll("table tr:not(:first-child)");
+    
+            let nextEventFound = false;
+    
+            rows.forEach(row => {
+                const dateCell = row.cells[0];
+                const dateText = dateCell.textContent.trim();
+                const eventDate = new Date(dateText + " 18:00:00"); // Annahme, dass die Zeit immer 18:00 Uhr ist
+    
+                // Vergleichen Sie das Event-Datum mit dem aktuellen Datum
+                if (eventDate > now) {
+                    if (!nextEventFound) {
+                        // Wenn dies das nächste Event ist, setzen Sie den Button auf "SET" oder "TICKETS"
+                        const button = row.querySelector("button");
+                        button.textContent = "SET"; // Setzen Sie den Button auf "SET"
+                        button.style.backgroundColor = "#4CAF50"; // Grün für "SET" (kann nach Wunsch geändert werden)
+                        nextEventFound = true;
+                    } else {
+                        // Für alle folgenden Events setzen wir die Schaltfläche auf "TICKETS"
+                        const button = row.querySelector("button");
+                        button.textContent = "TICKETS"; // Setzen Sie den Button auf "TICKETS"
+                        button.style.backgroundColor = "#f44336"; // Rot für "TICKETS" (kann nach Wunsch geändert werden)
+                    }
+                } else {
+                    // Für alle vergangene Events setzen wir die Schaltfläche auf "TICKETS"
+                    const button = row.querySelector("button");
+                    button.textContent = "TICKETS"; // Setzen Sie den Button auf "TICKETS"
+                    button.style.backgroundColor = "#f44336"; // Rot für "TICKETS" (kann nach Wunsch geändert werden)
+                }
+            });
+        }
+    
+        // Rufen Sie die Funktion auf, wenn die Seite geladen wird
+        updateUpcomingEvent();
+    
+        // Optional: Rufen Sie die Funktion in regelmäßigen Abständen auf, um die Schaltflächen zu aktualisieren
+        setInterval(updateUpcomingEvent, 60000); // Alle 60 Sekunden
+      });
+    </script>
 </body>
 </html>
