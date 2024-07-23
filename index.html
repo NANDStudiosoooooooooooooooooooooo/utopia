@@ -454,16 +454,16 @@
         });
     </script>
 
-    <script> //set next EVENT
-      document.addEventListener("DOMContentLoaded", function() {
-        function updateUpcomingEvent() {
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        function setNextEvent() {
             // Holen Sie sich das aktuelle Datum und die Uhrzeit
             const now = new Date();
     
             // Holen Sie sich alle Zeilen der Tabelle (außer der Kopfzeile)
             const rows = document.querySelectorAll("table tr:not(:first-child)");
     
-            let nextEventFound = false;
+            let nextEventDate = null;
     
             rows.forEach(row => {
                 const dateCell = row.cells[0];
@@ -472,33 +472,52 @@
     
                 // Vergleichen Sie das Event-Datum mit dem aktuellen Datum
                 if (eventDate > now) {
-                    if (!nextEventFound) {
-                        // Wenn dies das nächste Event ist, setzen Sie den Button auf "SET" oder "SET"
-                        const button = row.querySelector("button");
-                        button.textContent = "SET"; // Setzen Sie den Button auf "SET"
-                        
-                        nextEventFound = true;
-                    } else {
-                        // Für alle folgenden Events setzen wir die Schaltfläche auf "SET"
-                        const button = row.querySelector("button");
-                        button.textContent = "SET"; // Setzen Sie den Button auf "SET"
-                        
+                    // Wenn es das nächste Event ist und noch kein Datum gefunden wurde
+                    if (!nextEventDate || eventDate < nextEventDate) {
+                        nextEventDate = eventDate;
                     }
-                } else {
-                    // Für alle vergangene Events setzen wir die Schaltfläche auf "SET"
-                    const button = row.querySelector("button");
-                    button.textContent = "SET"; // Setzen Sie den Button auf "SET"
-                    
                 }
             });
+    
+            if (nextEventDate) {
+                // Setzen Sie das Countdown-Ziel auf das nächste Event-Datum
+                targetDate = nextEventDate.getTime();
+                const nextEventLocation = document.querySelector(`table tr:not(:first-child) td`)
+                    .find(row => new Date(row.textContent + " 18:00:00").getTime() === nextEventDate).parentElement
+                    .cells[1].textContent;
+    
+                // Aktualisieren Sie die Anzeige des ausgewählten Events
+                document.getElementById('selectedCity').textContent = nextEventLocation.toUpperCase();
+            }
         }
     
-        // Rufen Sie die Funktion auf, wenn die Seite geladen wird
-        updateUpcomingEvent();
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = targetDate - now;
     
-        // Optional: Rufen Sie die Funktion in regelmäßigen Abständen auf, um die Schaltflächen zu aktualisieren
-        setInterval(updateUpcomingEvent, 60000); // Alle 60 Sekunden
-      });
-    </script>
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+    
+            document.getElementById("days").innerHTML = days.toString().padStart(2, '0');
+            document.getElementById("hours").innerHTML = hours.toString().padStart(2, '0');
+            document.getElementById("minutes").innerHTML = minutes.toString().padStart(2, '0');
+            document.getElementById("seconds").innerHTML = seconds.toString().padStart(2, '0');
+    
+            if (distance < 0) {
+                document.getElementById("days").innerHTML = "00";
+                document.getElementById("hours").innerHTML = "00";
+                document.getElementById("minutes").innerHTML = "00";
+                document.getElementById("seconds").innerHTML = "00";
+            }
+        }
+    
+        let targetDate;
+        setNextEvent(); // Initialisiere das nächste Event
+        const countdownInterval = setInterval(updateCountdown, 1000);
+    });
+</script>
+   
 </body>
 </html>
