@@ -468,7 +468,10 @@
             rows.forEach(row => {
                 const dateCell = row.cells[0];
                 const dateText = dateCell.textContent.trim();
-                const eventDate = new Date(dateText + " 18:00:00"); // Annahme, dass die Zeit immer 18:00 Uhr ist
+                const [month, day] = dateText.split(' ');
+                
+                // Annahme: Jahr ist 2024
+                const eventDate = new Date(`2024 ${month} ${day}T18:00:00`);
     
                 // Vergleichen Sie das Event-Datum mit dem aktuellen Datum
                 if (eventDate > now) {
@@ -482,16 +485,27 @@
             if (nextEventDate) {
                 // Setzen Sie das Countdown-Ziel auf das nächste Event-Datum
                 targetDate = nextEventDate.getTime();
-                const nextEventLocation = document.querySelector(`table tr:not(:first-child) td`)
-                    .find(row => new Date(row.textContent + " 18:00:00").getTime() === nextEventDate).parentElement
-                    .cells[1].textContent;
+    
+                // Zeigen Sie den Ort des nächsten Events an
+                const nextEventLocation = Array.from(rows).find(row => {
+                    const dateCell = row.cells[0];
+                    const dateText = dateCell.textContent.trim();
+                    const [month, day] = dateText.split(' ');
+                    return new Date(`2024 ${month} ${day}T18:00:00`).getTime() === nextEventDate.getTime();
+                }).cells[1].textContent;
     
                 // Aktualisieren Sie die Anzeige des ausgewählten Events
                 document.getElementById('selectedCity').textContent = nextEventLocation.toUpperCase();
+            } else {
+                // Falls kein zukünftiges Event gefunden wurde
+                document.getElementById('selectedCity').textContent = "Kein zukünftiges Event gefunden";
+                targetDate = null;
             }
         }
     
         function updateCountdown() {
+            if (!targetDate) return;
+    
             const now = new Date().getTime();
             const distance = targetDate - now;
     
@@ -517,7 +531,7 @@
         setNextEvent(); // Initialisiere das nächste Event
         const countdownInterval = setInterval(updateCountdown, 1000);
     });
-</script>
-   
+    </script>
+
 </body>
 </html>
