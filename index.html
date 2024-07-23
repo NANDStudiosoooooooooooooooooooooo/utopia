@@ -476,19 +476,19 @@
                         // Wenn dies das nächste Event ist, setzen Sie den Button auf "SET" oder "SET"
                         const button = row.querySelector("button");
                         button.textContent = "SET"; // Setzen Sie den Button auf "SET"
-                        button.style.backgroundColor = "#4CAF50"; // Grün für "SET" (kann nach Wunsch geändert werden)
+                        
                         nextEventFound = true;
                     } else {
                         // Für alle folgenden Events setzen wir die Schaltfläche auf "SET"
                         const button = row.querySelector("button");
                         button.textContent = "SET"; // Setzen Sie den Button auf "SET"
-                        button.style.backgroundColor = "#f44336"; // Rot für "SET" (kann nach Wunsch geändert werden)
+                        
                     }
                 } else {
                     // Für alle vergangene Events setzen wir die Schaltfläche auf "SET"
                     const button = row.querySelector("button");
                     button.textContent = "SET"; // Setzen Sie den Button auf "SET"
-                    button.style.backgroundColor = "#f44336"; // Rot für "SET" (kann nach Wunsch geändert werden)
+                    
                 }
             });
         }
