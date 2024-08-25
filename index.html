@@ -542,11 +542,18 @@
     </script>
 
     <script src="tilt.jquery.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tilt.js/1.2.1/tilt.jquery.min.js"></script>
+
     <script>
-
-        const tilt = $('.countdown-container').tilt();
-
+        document.addEventListener("DOMContentLoaded", function() {
+            VanillaTilt.init(document.querySelectorAll("[data-tilt]"), {
+                max: 25,
+                speed: 400,
+                glare: true,
+                "max-glare": 0.5,
+            });
+        });
     </script>
 
 </body>
